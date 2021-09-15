@@ -27,7 +27,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/store"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	authclient "github.com/cosmos/cosmos-sdk/x/auth/client"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingcli "github.com/cosmos/cosmos-sdk/x/auth/vesting/client/cli"
@@ -125,7 +124,7 @@ func NewRootCmd(
 
 	encodingConfig := MakeEncodingConfig(moduleBasics)
 	initClientCtx := client.Context{}.
-		WithJSONMarshaler(encodingConfig.Marshaler).
+		WithCodec(encodingConfig.Marshaler).
 		WithInterfaceRegistry(encodingConfig.InterfaceRegistry).
 		WithTxConfig(encodingConfig.TxConfig).
 		WithLegacyAmino(encodingConfig.Amino).
@@ -150,7 +149,8 @@ func NewRootCmd(
 				return err
 			}
 
-			return server.InterceptConfigsPreRunHandler(cmd)
+			//TODO: find out which parameters are required here
+			return server.InterceptConfigsPreRunHandler(cmd,"",nil)
 		},
 	}
 
@@ -178,7 +178,7 @@ func initRootCmd(
 	buildApp AppBuilder,
 	options rootOptions,
 ) {
-	authclient.Codec = encodingConfig.Marshaler
+	//authclient.Codec = encodingConfig.Marshaler
 
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(moduleBasics, defaultNodeHome),

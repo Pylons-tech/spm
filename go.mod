@@ -1,9 +1,9 @@
 module github.com/tendermint/spm
 
-go 1.16
+go 1.17
 
 require (
-	github.com/cosmos/cosmos-sdk v0.42.6
+	github.com/cosmos/cosmos-sdk v0.42
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/spf13/cast v1.3.1
